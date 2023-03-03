@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Petition Website</title>
+  </head>
+  <body>
+    <h1>Sign the Petition</h1>
+    <p>We are petitioning for [insert cause here]. Please add your name to the list of supporters.</p>
+
+    <form>
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required>
+      <br>
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+      <br>
+      <button type="submit">Sign</button>
+    </form>
+
+    <h2>Supporters:</h2>
+    <p>Number of supporters: <span id="counter">0</span></p>
+
+    <h2>Comments:</h2>
+    <form>
+      <label for="comment">Leave a comment:</label>
+      <textarea id="comment" name="comment"></textarea>
+      <br>
+      <label for="name">Name:</label>
+      <input type="text" id="comment-name" name="comment-name" required>
+      <br>
+      <button type="submit">Submit</button>
+    </form>
+    <ul id="comments-list"></ul>
+
+    <script>
+      // initialize counter to 0
+      let counter = 0;
+      // get DOM elements
+      const counterEl = document.getElementById('counter');
+      const supportersListEl = document.getElementById('supporters-list');
+      const commentsListEl = document.getElementById('comments-list');
+      const formEl = document.querySelector('form');
+      const commentFormEl = document.querySelectorAll('form')[1];
+
+      // add event listener to form submission
+      formEl.addEventListener('submit', (event) => {
+        event.preventDefault();
+        // increment counter and update DOM
+        counter++;
+        counterEl.textContent = counter;
+        // reset form
+        formEl.reset();
+      });
+
+      // add event listener to comment form submission
+      commentFormEl.addEventListener('submit', (event) => {
+        event.preventDefault();
+        // get form data
+        const comment = document.getElementById('comment').value;
+        const commentName = document.getElementById('comment-name').value;
+        // add comment to list
+        const liEl = document.createElement('li');
+        liEl.innerHTML = `<strong>${commentName}:</strong> ${comment}`;
+        commentsListEl.appendChild(liEl);
+        // reset form
+        commentFormEl.reset();
+      });
+    </script>
+  </body>
+</html>
